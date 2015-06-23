@@ -1,4 +1,4 @@
 *.pyc
-docker-compose.tmpl.yml
+docker-compose.yml
 src/main/settings_local.py
 src/static/
