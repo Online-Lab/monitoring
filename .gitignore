@@ -2,4 +2,4 @@
 docker-compose.yml
 src/main/settings_local.py
 src/static/
-celerybeat-schedule
+src/celerybeat-schedule*

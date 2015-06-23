@@ -12,6 +12,7 @@ rabbitmq:
   image: tutum/rabbitmq
   environment:
     - RABBITMQ_PASS=mypass
+    - USER=admin
 # container with Django web server
 web:
   build: .  # build using default Dockerfile

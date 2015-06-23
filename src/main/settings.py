@@ -176,11 +176,11 @@ from celery.schedules import crontab
 
 CELERYBEAT_SCHEDULE = {
     'monitoring-check-1': {
-        'task': 'mmonitoring.tasks.check_urls',
+        'task': 'monitoring.tasks.check_urls',
         'schedule': crontab(hour='7-22', minute="*/10"),
     },
     'monitoring-check-2': {
-        'task': 'mmonitoring.tasks.check_urls',
+        'task': 'monitoring.tasks.check_urls',
         'schedule': crontab(hour=23, minute="0-30/10"),
     },
 }
