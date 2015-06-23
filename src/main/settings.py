@@ -46,6 +46,10 @@ INSTALLED_APPS = (
     'constance.backends.database',
 )
 
+INSTALLED_APPS += (
+    'monitoring',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -103,10 +107,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # custom
 
-INSTALLED_APPS += (
-    'monitoring',
-)
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -130,8 +130,8 @@ BROKER_URL = os.environ.get('BROKER_URL',
                             '')
 if not BROKER_URL:
     BROKER_URL = 'amqp://{user}:{password}@{hostname}/{vhost}/'.format(
-        user=os.environ.get('RABBIT_ENV_USER', 'admin'),
-        password=os.environ.get('RABBIT_ENV_RABBITMQ_PASS', 'mypass'),
+        user=os.environ.get('RABBIT_ENV_USER', 'guest'),
+        password=os.environ.get('RABBIT_ENV_RABBITMQ_PASS', ''),
         hostname=RABBIT_HOSTNAME,
         vhost=os.environ.get('RABBIT_ENV_VHOST', ''))
 
@@ -176,11 +176,11 @@ from celery.schedules import crontab
 
 CELERYBEAT_SCHEDULE = {
     'monitoring-check-1': {
-        'task': 'monitoring.check',
+        'task': 'mmonitoring.tasks.check_urls',
         'schedule': crontab(hour='7-22', minute="*/10"),
     },
     'monitoring-check-2': {
-        'task': 'monitoring.check',
+        'task': 'mmonitoring.tasks.check_urls',
         'schedule': crontab(hour=23, minute="0-30/10"),
     },
 }
