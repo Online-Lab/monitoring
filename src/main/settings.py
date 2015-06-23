@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from  __future__ import absolute_import
+from __future__ import absolute_import
 import os
 from kombu import Exchange, Queue
 
@@ -80,7 +80,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -119,24 +118,15 @@ DATABASES = {
     },
 }
 
-RABBIT_HOSTNAME = os.environ.get('RABBIT_PORT_5672_TCP', 'localhost:5672')
+REDIS_HOSTNAME = os.environ.get('REDIS_PORT_6379_TCP', 'localhost:6379')
 
-if RABBIT_HOSTNAME.startswith('tcp://'):
-    RABBIT_HOSTNAME = RABBIT_HOSTNAME.split('//')[1]
+if REDIS_HOSTNAME.startswith('tcp://'):
+    REDIS_HOSTNAME = REDIS_HOSTNAME.split('//')[1]
 
-BROKER_URL = os.environ.get('BROKER_URL',
-                            '')
-if not BROKER_URL:
-    BROKER_URL = 'amqp://{user}:{password}@{hostname}/{vhost}/'.format(
-        user=os.environ.get('RABBIT_ENV_USER', 'guest'),
-        password=os.environ.get('RABBIT_ENV_RABBITMQ_PASS', ''),
-        hostname=RABBIT_HOSTNAME,
-        vhost=os.environ.get('RABBIT_ENV_VHOST', ''))
+BROKER_URL = os.environ.get('BROKER_URL', 'redis://{hostname}/0'.format(
+    hostname=REDIS_HOSTNAME,
+))
 
-# We don't want to have dead connections stored on rabbitmq, so we have to negotiate using heartbeats
-BROKER_HEARTBEAT = '?heartbeat=30'
-if not BROKER_URL.endswith(BROKER_HEARTBEAT):
-    BROKER_URL += BROKER_HEARTBEAT
 
 BROKER_POOL_LIMIT = 1
 BROKER_CONNECTION_TIMEOUT = 10

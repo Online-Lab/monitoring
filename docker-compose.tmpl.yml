@@ -8,11 +8,8 @@ db:
   volumes:
     - ./pgdata:/var/lib/postgresql/data
 # rabbitmq container
-rabbitmq:
-  image: tutum/rabbitmq
-  environment:
-    - RABBITMQ_PASS=mypass
-    - USER=admin
+redis:
+  image: redis
 # container with Django web server
 web:
   build: .  # build using default Dockerfile
@@ -21,10 +18,10 @@ web:
     - .:/app  # mount current directory inside container
   # ports:
   #   - "8000:8000"
-  # set up links so that web knows about db, rabbit and redis
+  # set up links so that web knows about db and redis
   links:
     - db:db
-    - rabbitmq:rabbit
+    - redis:redis
 # nginx
 nginx:
     image: nginx
@@ -42,4 +39,4 @@ worker:
     - .:/app
   links:
     - db:db
-    - rabbitmq:rabbit
+    - redis:redis
