@@ -21,6 +21,7 @@ class Url(models.Model):
             result.content = response.text
             last_result = self.get_last_check()
             if last_result.equal(result):
+                last_result.save()
                 return
         except Exception as e:
             result.error = e
