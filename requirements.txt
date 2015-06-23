@@ -5,5 +5,4 @@ gunicorn
 docker-compose
 requests
 ipython
-django-admin-bootstrapped
 django-constance[database]
