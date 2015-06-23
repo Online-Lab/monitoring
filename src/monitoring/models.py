@@ -23,11 +23,20 @@ class Url(models.Model):
             result.error = e
         result.save()
 
+    def get_last_check(self):
+        return self.checks.order_by('created_on').last()
+
     @property
-    def last_code(self):
-        last_check = self.checks.order_by('created_on').last()
+    def last_status(self):
+        last_check = self.get_last_check()
         if last_check is not None:
             return last_check.status
+
+    @property
+    def last_check_date(self):
+        last_check = self.get_last_check()
+        if last_check is not None:
+            return last_check.created_on
 
 
 class CheckResult(models.Model):

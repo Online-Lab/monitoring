@@ -116,7 +116,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_ENV_DB', 'monitoring'),
         'USER': os.environ.get('DB_ENV_POSTGRES_USER', 'monitoring'),
         'PASSWORD': os.environ.get('DB_ENV_POSTGRES_PASSWORD', '123'),
-        'HOST': os.environ.get('DB_PORT_5432_TCP_ADDR', ''),
+        'HOST': os.environ.get('DB_PORT_5432_TCP_ADDR', '127.0.0.1'),
         'PORT': os.environ.get('DB_PORT_5432_TCP_PORT', ''),
     },
 }

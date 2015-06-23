@@ -6,11 +6,11 @@ from .models import Url, CheckResult
 
 @admin.register(Url)
 class UrlAdmin(admin.ModelAdmin):
-    list_display = ('url', 'last_code')
+    list_display = ('url', 'last_status', 'last_check_date')
 
 
 @admin.register(CheckResult)
 class CheckResultAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('url', 'status', 'error', 'created_on')
 
 
