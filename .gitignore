@@ -1,0 +1,4 @@
+*.pyc
+docker-compose.tmpl.yml
+src/main/settings_local.py
+src/static/

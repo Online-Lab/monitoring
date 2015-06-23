@@ -1,0 +1,9 @@
+Django<1.9
+celery
+psycopg2
+gunicorn
+docker-compose
+requests
+ipython
+django-admin-bootstrapped
+django-constance[database]
