@@ -11,6 +11,6 @@ class UrlAdmin(admin.ModelAdmin):
 
 @admin.register(CheckResult)
 class CheckResultAdmin(admin.ModelAdmin):
-    list_display = ('url', 'status', 'error', 'created_on')
+    list_display = ('url', 'status', 'error', 'created_on', 'updated_on')
 
 

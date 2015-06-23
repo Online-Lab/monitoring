@@ -6,3 +6,9 @@ docker-compose
 requests
 ipython
 django-constance[database]
+pytest
+pytest-django
+mock
+django-dynamic-fixture
+pytest-mock
+pyhamcrest

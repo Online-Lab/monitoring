@@ -19,6 +19,9 @@ class Url(models.Model):
             response = requests.get(self.url)
             result.status = response.status_code
             result.content = response.text
+            last_result = self.get_last_check()
+            if last_result.equal(result):
+                return
         except Exception as e:
             result.error = e
         result.save()
@@ -36,7 +39,7 @@ class Url(models.Model):
     def last_check_date(self):
         last_check = self.get_last_check()
         if last_check is not None:
-            return last_check.created_on
+            return last_check.updated_on
 
 
 class CheckResult(models.Model):
@@ -45,6 +48,7 @@ class CheckResult(models.Model):
     content = models.TextField(u'Content', null=True)
     error = models.TextField(u'Error', null=True, default=None)
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "CheckResult"
@@ -52,3 +56,9 @@ class CheckResult(models.Model):
 
     def __str__(self):
         return "Check %s %s" % (self.pk, self.url)
+
+    def equal(self, another):
+        return all([
+            self.status == another.status,
+            self.content == another.content,
+        ])
